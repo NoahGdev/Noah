@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --foreground-secondary: #404040;
+  --foreground-tertiary: #737373;
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
+  --accent: #f5f5f5;
+  --border: #e5e5e5;
+  --ring: #a1a1a1;
+  --selection: #f2cf3b;
+  --section-gap: 2.5rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-tertiary: var(--foreground-tertiary);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --spacing-section: var(--section-gap);
+  --container-page: 700px;
+}
+
+@layer base {
+html {
+  background: var(--background);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--selection);
+  color: var(--foreground);
+}
+
+h1, h2, h3 {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+}
+
+.squircle {
+  corner-shape: squircle;
+}
+
+.row-hover {
+  position: relative;
+}
+.row-hover::before {
+  content: "";
+  position: absolute;
+  inset: -0.5rem -0.75rem;
+  border-radius: 0.75rem;
+  corner-shape: squircle;
+  background: transparent;
+  transition: background-color 150ms ease;
+  z-index: -1;
+}
+.row-hover:hover::before,
+.row-hover:focus-within::before {
+  background: var(--muted);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+@media (max-width: 700px) {
+  .scroll-fade-x {
+    --fade: 1.75rem;
+    mask-image: linear-gradient(to right, transparent, black var(--fade), black calc(100% - var(--fade)), transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black var(--fade), black calc(100% - var(--fade)), transparent);
+  }
+}
+
+@keyframes halo {
+  0% { transform: scale(0.6); opacity: 0.6; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.timeline-halo {
+  background: var(--foreground);
+  animation: halo 2.2s ease-out infinite;
+}
+
+.collapse-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 225ms ease;
+}
+.collapse-grid[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.collapse-grid > * {
+  overflow: hidden;
+  min-height: 0;
+}
